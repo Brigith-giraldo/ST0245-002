@@ -1,7 +1,8 @@
+
 /**
  * La clase Punto tiene la intención de representar coordenadas en el espacio y calcular su distancia.
  * 
-* @author Mauricio Toro, Andres Paez
+ * @author Mauricio Toro, Andres Paez
  * @version 1
  */
 
@@ -13,7 +14,8 @@ public class Punto {
      * Se inicializan los atributos de clase
      */
     public Punto(double x, double y) {
-
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -22,7 +24,7 @@ public class Punto {
      * @return eje coordenado x
      */
     public double x() {
-
+        return x;
     }
 
     /**
@@ -31,7 +33,7 @@ public class Punto {
      * @return eje coordenado y
      */
     public double y() {
-
+        return y;
     }
 
     /**
@@ -44,7 +46,7 @@ public class Punto {
      */
     
     public double radioPolar() {
-
+        return Math.sqrt(x*x + y*y);
     }
 
 
@@ -57,7 +59,7 @@ public class Punto {
      * @see <a href="http://mathworld.wolfram.com/PolarCoordinates.html"> Ver más <a/>
      */
     public double anguloPolar() {
-
+        return Math.atan(y/x);
     }
 
     /**
@@ -76,6 +78,6 @@ public class Punto {
      */
   
     public double distanciaEuclidiana(Punto otro) {
-        
+        return Math.sqrt(Math.pow(otro.x - this.x, 2) + Math.pow(otro.y - this.y, 2));
     }
 }

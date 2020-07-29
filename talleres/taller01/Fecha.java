@@ -1,3 +1,4 @@
+
 /**
  * La clase Fecha tiene la intención de representar el tipo abstracto fecha.
  * Aunque ya existen librerías encargadas de esta funcion:
@@ -12,12 +13,10 @@ public class Fecha {
     
 
     /*
-
     varibales con atributo final indican que una variable es de tipo 
     constante, es decir, no admitirá cambios después de su declaración y asignación de valor.
     final determina que un atributo no puede ser sobreescrito o redefinido.
     Se le asigna esta característica para evitar que se sobrescriban valores.
-
     tener en cuenta tipado de las 3 variables!.
     */
 
@@ -29,8 +28,10 @@ public class Fecha {
     /**
      * Se inicializan las variables globales en el constructor de manera que no posean valores nulos o 0s.
      */
-    public Fecha() {
-
+    public Fecha(int dia, int mes, int anyo) {
+        this.dia = dia;
+        this.mes = mes;
+        this.anyo = anyo;
     }
 
     /**
@@ -39,7 +40,7 @@ public class Fecha {
      * @return el dia
      */
     public int dia() {
-
+        return  dia;
     }
 
     /**
@@ -48,7 +49,7 @@ public class Fecha {
      * @return el mes
      */
     public int mes() {
-
+        return mes;
     }
 
     /**
@@ -57,7 +58,7 @@ public class Fecha {
      * @return el año
      */
     public int anio() {
-
+        return anyo;
     }
 
     /**
@@ -73,7 +74,21 @@ public class Fecha {
     */
 
     public int comparar(Fecha otra) {
-
+        if (this.anyo > otra.anio()){
+            return 1;
+        }else if (this.anyo < otra.anio()) {
+            return -1;
+        }else if (this.mes > otra.mes()) {
+            return 1;
+        }else if (this.mes < otra.mes()) {
+            return -1;
+        }else if (this.dia > otra.dia()) {
+            return 1;
+        }else if (this.dia < otra.dia()) {
+            return -1;
+        }else {
+            return 0;
+        }
     }
 
 
@@ -84,6 +99,6 @@ public class Fecha {
     * @return una cadena que contiene la fecha
     */
     public String toString() {
-        
+        return String.format("%02d/%02d/%04d", dia,mes, anyo);
     }
 }
