@@ -2,16 +2,16 @@
 /**
  *
  * La clase Contador tiene la intención de representar un contador.
- * 
- * @author Kevin Sossa, Dixon
+ *
+ * @author Kevin Sossa, Dixon Calderon
  * @version 1
  */
-
+ 
 public class Contador {
-    
+
     private int cuenta;
     private final String id;
-    
+
     /**
      * Se inicializan las variables globales en el constructor de manera que no posean valores nulos o 0s.
      */
@@ -35,7 +35,7 @@ public class Contador {
     public void decrementar() {
         this.cuenta -= 1;
     }
-    
+
     /**
      * El método incrementos nos muestra en que valor se encuentra la cuenta actualmente.
      * @return el numero actual de la cuenta
@@ -44,7 +44,7 @@ public class Contador {
         return this.cuenta;
     }
 
-    
+
     /**
      * toString se encargará de convertir el contador en un tipo cadena
      * para su posterior visualización

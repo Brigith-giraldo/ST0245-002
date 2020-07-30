@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Kevin Sossa, Dixon
+ * @author Kevin Sossa, Dixon Calderon
  */
 public class Line2D {
     
-    private final Punto2D inicial;
-    private final Punto2D finall;
-    private final ArrayList<Punto2D> intermedios;
+    private final Punto inicial;
+    private final Punto finall;
+    private final ArrayList<Punto> intermedios;
     
-    public Line2D(Punto2D p1, Punto2D p2){
+    public Line2D(Punto p1, Punto p2){
         intermedios = new ArrayList<>();
-        if (p1.getX() < p2.getX()){
+        if (p1.x() < p2.y()){
             this.inicial = p1;
             this.finall = p2;
         }else {
@@ -24,34 +24,34 @@ public class Line2D {
         
     }
     
-    public Punto2D getInicial(){
+    public Punto getInicial(){
         return this.inicial;
     }
     
-    public Punto2D getFinal(){
+    public Punto getFinal(){
         return this.finall;
     }
     
     public void generarPuntos(){
         double x1,y1,x2,y2,m;
-        x1 = this.inicial.getX();
-        y1 = this.inicial.getY();
-        x2 = this.finall.getX();
-        y2 = this.finall.getY();
+        x1 = this.inicial.x();
+        y1 = this.inicial.y();
+        x2 = this.finall.x();
+        y2 = this.finall.y();
         m = Math.ceil((y2 - y1) / (x2 - x1));
         while (x1 < x2){
             x1 += 1;
 	    y1 -= 1;
             for (int i = 0; i <= m; i++){
 		y1 += 1;
-		intermedios.add(new Punto2D((int)x1, (int)y1));
+		intermedios.add(new Punto((int)x1, (int)y1));
 	    }
         }
     }
     
     public String toString(){
         String out = this.inicial.toString() + "\n";
-        for (Punto2D puntos : intermedios) {
+        for (Punto puntos : intermedios) {
             out += puntos.toString() + "\n";
         }
         return out;

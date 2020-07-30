@@ -2,7 +2,7 @@
 /**
  * La clase Punto tiene la intención de representar coordenadas en el espacio y calcular su distancia.
  * 
- * @author Kevin Sossa, Dixon
+ * @author Kevin Sossa, Dixon Calderon
  * @version 1
  */
 
@@ -79,5 +79,10 @@ public class Punto {
   
     public double distanciaEuclidiana(Punto otro) {
         return Math.sqrt(Math.pow(otro.x - this.x, 2) + Math.pow(otro.y - this.y, 2));
+    }
+
+    @Override
+    public String toString(){
+        return "("+(int)x+","+(int)y+")";
     }
 }
