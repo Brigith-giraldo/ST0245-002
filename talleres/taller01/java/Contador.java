@@ -1,11 +1,9 @@
 
 /**
  *
- * @author sossa
- *
  * La clase Contador tiene la intención de representar un contador.
  * 
- * @author Mauricio Toro, Andres Paez
+ * @author Kevin Sossa, Dixon
  * @version 1
  */
 

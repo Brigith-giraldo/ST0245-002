@@ -1,7 +1,7 @@
 
 /**
  *
- * @author sossa
+ * @author Kevin Sossa, Dixon
  */
 public class Punto2D {
     private int x, y;

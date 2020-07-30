@@ -1,7 +1,7 @@
 
 /**
  *
- * @author sossa
+ * @author Kevin Sossa, Dixon
  */
 public class Main {
 
@@ -16,7 +16,7 @@ public class Main {
         System.out.println();
         
         
-        Punto p = new Punto(-1, 1);
+        Punto p = new Punto(1, 1);
         // 0,0
         System.out.printf("Punto: {%f, %f}\n", p.x(), p.y());
         // 1*sqrt(2)
@@ -36,7 +36,7 @@ public class Main {
         System.out.println(f1.comparar(f2));
         
         System.out.println();
-        Line2D l1 = new Line2D(new Punto2D(-1, 6), new Punto2D(1, 0));
+        Line2D l1 = new Line2D(new Punto2D(0, 0), new Punto2D(1,2));
         l1.generarPuntos();
         System.out.println(l1.toString());
     }

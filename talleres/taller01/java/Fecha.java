@@ -5,7 +5,7 @@
  * @see <a href="http://www.baeldung.com/java-8-date-time-intro"> Ver documentacion tipo Time </a>
  * En este ejercicio podemos tener una compresión más profunda de su funcionamiento interno.
  * 
- * @author Mauricio Toro, Andres Paez
+ * @author Kevin Sossa, Dixon
  * @version 1
  */
 

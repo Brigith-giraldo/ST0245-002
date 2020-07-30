@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author sossa
+ * @author Kevin Sossa, Dixon
  */
 public class Line2D {
     
@@ -38,18 +38,14 @@ public class Line2D {
         y1 = this.inicial.getY();
         x2 = this.finall.getX();
         y2 = this.finall.getY();
-        m = (y2 - y1) / (x2 - x1);
-        while (true){
+        m = Math.ceil((y2 - y1) / (x2 - x1));
+        while (x1 < x2){
             x1 += 1;
-            if (x1 == x2) {
-                break;
-            }
-            
-            y1 += m;
-            if (y1 % 1 == 0){
-                intermedios.add(new Punto2D((int)x1, (int)y1));
-            }
-
+	    y1 -= 1;
+            for (int i = 0; i <= m; i++){
+		y1 += 1;
+		intermedios.add(new Punto2D((int)x1, (int)y1));
+	    }
         }
     }
     
@@ -58,7 +54,6 @@ public class Line2D {
         for (Punto2D puntos : intermedios) {
             out += puntos.toString() + "\n";
         }
-        out += this.finall.toString();
         return out;
     }
 }
