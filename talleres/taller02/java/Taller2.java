@@ -1,10 +1,11 @@
+
 /**
-*La clase taller dos tiene como objetivo dar solución
-*a 3 problemas recursivos
-*
-*@autor Kevin Sossa, Dixon Calderon
-*@version 1
-*/
+ * La clase taller dos tiene como objetivo dar solución
+ * a 3 problemas recursivos
+ *
+ * @autor Kevin Sossa, Dixon Calderon
+ * @version 1
+ */
 
 public class Taller2 {
 	
@@ -20,7 +21,7 @@ public class Taller2 {
 	*
 	* @return el máximo común divisor
 	*/
-	public static int gcd(int p, int q){
+	public static int gcd(final int p, final int q){
 		if (q == 0){
 			return p;
 		}else {
@@ -37,7 +38,7 @@ public class Taller2 {
 	*
 	* @return verdadero si hay un subconjunto el cual su suma = target
 	*/
-	public static boolean SumaGrupo(int[] nums, int target) {
+	public static boolean SumaGrupo(final int[] nums, final int target) {
 		return SumaGrupo(0, nums, target);
 	}	
 	
@@ -56,9 +57,14 @@ public class Taller2 {
 	*
 	* @return verdadero si hay un subconjunto el cual su suma = target
 	*/
-	private static boolean SumaGrupo(int start, int[] nums, int target) {
-		//...
-		return true;
+	private static boolean SumaGrupo(final int start, final int[] nums, final int target) {
+		if (target == 0){
+			return true;
+		} else if(start == nums.length){
+			return false;
+		} else {
+			return SumaGrupo(start+1, nums, target-nums[start]) || SumaGrupo(start+1, nums, target);
+		}
 	}
 	
 	/**
@@ -68,8 +74,9 @@ public class Taller2 {
 	* vacía necesaria para el metodo reursivo combinationsAux. Este metodo no se modifica.
 	* 
 	*/
-	public static void combinations(String s) { 
+	public static void combinations(final String s) { 
 		combinationsAux("", s); 
+		System.out.println();
 	}
 	
 	/**
@@ -85,8 +92,34 @@ public class Taller2 {
 	*
 	*/
 
-	private static void combinationsAux(String prefix, String s) {  
-		//...
+	private static void combinationsAux(final String prefix, final String s) {
+		if (s.isEmpty()){
+			if (!prefix.isEmpty()){
+				System.out.print(prefix+", ");
+			}
+		}else {
+			combinationsAux(prefix+s.charAt(0), s.substring(1));
+			combinationsAux(prefix, s.substring(1));
+		}
+	}
+	public static void sub(String s1, String s2){
+		int max_len=0;
+		for (int i = 0; i < s1.length(); i++){
+			int max = subSequence(i, 0, s1, s2);
+			if (max > max_len){
+				max_len = max;
+			}
+		}
+		System.out.println("Mayor largo del subString: "+max_len);
 	}
 
+	public static int subSequence(int i,int len,String s1, String s2){
+		if (i < s1.length()){
+			int s = s2.indexOf(s1.charAt(i));
+			if (s >= 0){
+				return subSequence(i+1, len+1, s1, s2.substring(s));
+			}
+		}
+		return len;
+	}
 }

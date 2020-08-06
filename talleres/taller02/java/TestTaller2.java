@@ -43,7 +43,10 @@ public class TestTaller2 {
 		Taller2.combinations("Hi");
 	}
 	
-	
+	public static void ejercici4(){
+		System.out.println("\nEjercicio 4: ");
+		Taller2.sub("ABCDGH","AEDGHR");
+	}
 	
 	public static void main(String[] args){	
         //Ejercicio1
@@ -61,7 +64,8 @@ public class TestTaller2 {
         
         //Ejercicio3
         ejercicio3();
-        
+		
+		ejercici4();
         
 
     }
