@@ -36,7 +36,7 @@ int main(){
 
     string s1,s2;
     for (int i = 0;i < 20 ;i++){
-        cin >> s1;
+        cin >> s1; 
         cin >> s2;
         int end,start;
         cout << s1.length() << endl;
