@@ -38,7 +38,7 @@ public class TestTaller4 {
     public static void main(String[] args){
         //Ejercicio1
         if(ejercicio1())
-            System.out.println("Ejercicio 1 Correcto");
+            System.out.println("Ejercicio 1 Correcto ");
         else
         System.out.println("Ejercicio 1 Incorrecto");
         
