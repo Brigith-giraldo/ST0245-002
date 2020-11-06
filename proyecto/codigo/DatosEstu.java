@@ -23,7 +23,7 @@ public class DatosEstu{
     public static void leerArchivo(){
         List<String[]> data = new ArrayList<>();
 
-        File dataFile = new File("lite.csv");
+        File dataFile = new File("4_train_balanced_135000.csv");
         try {
             FileReader fr = new FileReader(dataFile);
             BufferedReader bf = new BufferedReader(fr);
