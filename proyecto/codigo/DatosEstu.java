@@ -23,7 +23,7 @@ public class DatosEstu{
     public static void leerArchivo(){
         List<String[]> data = new ArrayList<>();
 
-        File dataFile = new File("4_train_balanced_135000.csv");
+        File dataFile = new File("0_train_balanced_15000.csv");
         try {
             FileReader fr = new FileReader(dataFile);
             BufferedReader bf = new BufferedReader(fr);
@@ -35,7 +35,7 @@ public class DatosEstu{
             System.out.println(e);
         }
 
-        Gini.rows(data);
+        DecisionTree tree = new DecisionTree(data);
     }
 
     

@@ -1,89 +1,62 @@
 
-import java.util.ArrayList;
+import java.util.AbstractMap; 
 import java.util.List;
 import java.util.Arrays;
 import java.util.HashSet; 
 
-
-
 public class Gini {
     
-    public static void rows(List<String[]> data){
-        HashSet<String> ignore = new HashSet<String>(Arrays.asList("ESTU_TIPODOCUMENTO.1","ESTU_NACIONALIDAD.1","ESTU_GENERO.1",
-        "ESTU_FECHANACIMIENTO.1","PERIODO.1","ESTU_CONSECUTIVO.1","ESTU_ESTUDIANTE.1","ESTU_PAIS_RESIDE.1","ESTU_TIENEETNIA","ESTU_ETNIA",
-        "ESTU_LIMITA_MOTRIZ","ESTU_LIMITA_INVIDENTE","ESTU_LIMITA_CONDICIONESPECIAL","ESTU_LIMITA_SORDO","ESTU_LIMITA_SDOWN",
-        "ESTU_LIMITA_AUTISMO","ESTU_DEPTO_RESIDE.1","ESTU_COD_RESIDE_DEPTO.1","ESTU_MCPIO_RESIDE.1","ESTU_COD_RESIDE_MCPIO.1",
-        "ESTU_AREARESIDE","ESTU_MESTERMINOBACHILLER","ESTU_ANOTERMINOBACHILLER","ESTU_VALORPENSIONCOLEGIO","ESTU_FECHAGRADOBACHILLER",
-        "FAMI_ESTRATOVIVIENDA.1","FAMI_PISOSHOGAR","FAMI_NIVELSISBEN","FAMI_TIENELAVADORA","FAMI_TIENEHORNOMICROOGAS","FAMI_TIENEMICROONDAS",
-        "FAMI_TIENEHORNO","FAMI_TIENEDVD","FAMI_INGRESOFMILIARMENSUAL","FAMI_COMELECHEDERIVADOS","FAMI_COMECARNEPESCADOHUEVO",
-        "FAMI_COMECEREALFRUTOSLEGUMBRE","ESTU_TIPOREMUNERACION","ESTU_ANOMATRICULAPRIMERO","ESTU_ANOTERMINOQUINTO","ESTU_ANOMATRICULASEXTO",
-        "ESTU_ANOSCOLEGIOACTUAL","ESTU_TOTALALUMNOSCURSO","ESTU_IESDESEADA","ESTU_COD_IESDESEADA","ESTU_MCPIOIESDESEADA","ESTU_COD_MCPIOIESDESEADA",
-        "ESTU_INSTPORPRESTIGIO","ESTU_INSTPORCOSTOMATRICULA","ESTU_INSTPORUNICAQUEOFRECE","ESTU_INSTPOROPORTUNIDADES","ESTU_INSTPORAMIGOSESTUDIANDO",
-        "ESTU_INSTPOROTRARAZON","ESTU_COD_PROGRAMADESEADO","ESTU_PROGRAMADESEADO","ESTU_PROGORIENTACIONVOCACIONAL","ESTU_PROGPORBUSCANDOCARRERA",
-        "ESTU_PROGPORCOLOMBIAAPRENDE","ESTU_PROGPORINTERESPERSONAL","ESTU_PROGPORTRADICIONFAMILIAR","ESTU_PROGPORMEJORARPOSICSOCIAL",
-        "ESTU_PROGPORINFLUENCIAALGUIEN","COLE_CODIGO_ICFES","COLE_COD_DANE_ESTABLECIMIENTO","COLE_NOMBRE_ESTABLECIMIENTO","COLE_GENERO",
-        "COLE_CALENDARIO","COLE_COD_DANE_SEDE","COLE_NOMBRE_SEDE","COLE_SEDE_PRINCIPAL","COLE_AREA_UBICACION","COLE_COD_MCPIO_UBICACION",
-        "COLE_MCPIO_UBICACION","COLE_COD_DEPTO_UBICACION","COLE_DEPTO_UBICACION","ESTU_COD_MCPIO_PRESENTACION","ESTU_MCPIO_PRESENTACION",
-        "ESTU_DEPTO_PRESENTACION","ESTU_COD_DEPTO_PRESENTACION","EXITO"));
-        HashSet<String> save;
-        String d1="",d2="";
-        float d3 = 1;
-        float pondered;
+    public static AbstractMap.SimpleEntry<String,Integer> bestOption(List<String[]> data, HashSet<String> ignore){
+        String decision="";
+        int decisionRow = -1;
+        float pondered = 1;
+        float aux;
         for (int j = 0; j < data.get(0).length;j++){
-            save = new HashSet<String>();
-            
             if (ignore.contains(data.get(0)[j].toUpperCase())){
                 continue;
             }
-            System.out.println(data.get(0)[j].toUpperCase());
-            for (int i = 1; i < data.size();i++){
-                if (!save.contains(data.get(i)[j])){
-                    save.add(data.get(i)[j]);
-                    pondered = ponderedGiniValue(data, j, data.get(i)[j]);
-                    //System.out.println(data.get(0)[j]+" = "+data.get(i)[j]+" -> "+pondered);
-                    if (pondered < d3){
-                        d1 = data.get(0)[j];
-                        d2 = data.get(i)[j];
-                        d3 = pondered;
-                    }
-                }
+            aux = ponderedGini(data, j);
+            //System.out.println(data.get(0)[j].toUpperCase()+" -> "+aux);
+            if (aux<pondered){
+                decisionRow = j;
+                pondered = aux;
+                decision = data.get(0)[j].toUpperCase();
             }
-            //System.out.println("***************************");
         }
-        System.out.println("Mejor es: "+d1+" = "+d2+" -> "+d3);
+        //System.out.println("Mejor es: "+decision+" = "+pondered);
+        return new AbstractMap.SimpleEntry<>(decision,decisionRow);
     }
     
-    public static float ponderedGiniValue(List<String[]> data, int row, String value){
-        List<String[]> yes = new ArrayList<>();
-        List<String[]> no = new ArrayList<>();
-
+    public static float ponderedGini(List<String[]> data, int row){
+        HashSet<String> save = new HashSet<>();
+        float pondered = 0;
+        AbstractMap.SimpleEntry<Integer,Float> aux;
         for (int i = 1; i < data.size(); i++){
-            
-            if (data.get(i)[row].equalsIgnoreCase(value)){
-                
-                yes.add(data.get(i));
-            }else{
-                //System.out.println(i+" "+data.get(i)[row]+" "+value);
-                no.add(data.get(i));
+            if (!save.contains(data.get(i)[row])){
+                save.add(data.get(i)[row]);
+                aux = gini(data, row, data.get(i)[row]);
+                pondered += ((float)aux.getKey()/((float)data.size()-1)) * aux.getValue();
             }
         }
-        float giniYes = gini(yes);
-        float giniNo = gini(no);
-        return ((yes.size()*giniYes + no.size()*giniNo) / (data.size() -1));
+        return pondered;
     }
 
-    public static float gini(List<String[]> data){
+    public static AbstractMap.SimpleEntry<Integer,Float> gini(List<String[]> data,int row, String value){
         float p0=0,p1=0;
+        int cant = 0;
         for (int i = 0; i < data.size(); i++){
-            if (data.get(i)[data.get(0).length-1].equalsIgnoreCase("1")){
-                p1 += 1;
-            }else{
-                p0 += 1;
+            if (data.get(i)[row].equalsIgnoreCase(value)){
+                cant += 1;
+                if (data.get(i)[data.get(0).length-1].equalsIgnoreCase("1")){
+                    p1 += 1;
+                }else{
+                    p0 += 1;
+                }
             }
         }
-        p0 /= data.size();
-        p1 /= data.size();
-        //System.out.println(1-(p0*p0 + p1*p1));
-        return (1-(p0*p0 + p1*p1));
+        p0 /= cant;
+        p1 /= cant;
+        //System.out.println(data.get(0)[row] + " = "+ value +" gini: "+(1-(p0*p0) - (p1*p1)));
+        return new AbstractMap.SimpleEntry<>(cant, (1-(p0*p0) - (p1*p1)) );
     }
 }
