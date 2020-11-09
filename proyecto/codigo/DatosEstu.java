@@ -6,24 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class DatosEstu{
-    
-    
 
-    //estrato -> gini = puro ->
-    // p0 = bajo prom
-    // p1 = sobre prom
-
-    // P0 = n0/n = 10/30
-    // P1 = n1/(n) = 20/30
-
-    // lg = 1 -(P0^2 + P1^2)
-
-    // lp = (n0*l0 + n1*l1) / n
-
-    public static void leerArchivo(){
+    public static List<String[]> leerArchivo(String s){
         List<String[]> data = new ArrayList<>();
 
-        File dataFile = new File("0_train_balanced_15000.csv");
+        File dataFile = new File(s);
         try {
             FileReader fr = new FileReader(dataFile);
             BufferedReader bf = new BufferedReader(fr);
@@ -34,20 +21,29 @@ public class DatosEstu{
         } catch (IOException e) {
             System.out.println(e);
         }
-
-        DecisionTree tree = new DecisionTree(data);
+        return data;
     }
 
     
 
     public static void main(String[] args) {
-        DatosEstu.leerArchivo();
-        /*for (String[] s : data) {
-            for (String s2 : s) {
-                System.out.println(s2+" : 0 ");
+        DecisionTree tree = new DecisionTree(DatosEstu.leerArchivo("4_train_balanced_135000.csv"));
+        List<String[]> test = DatosEstu.leerArchivo("4_test_balanced_45000.csv");
+        //tree.print();
+        String aux;
+        int yes=0,not=0,cant=0;
+        for (int i = 1; i < test.size(); i++){
+            aux = tree.use(test.get(i));
+            //System.out.println(i+": "+aux);
+            cant += 1;
+            if (aux.equals("Correct")){
+                yes+=1;
+            }else {
+                not +=1;
             }
-            System.out.println();
-            break;
-        }*/
+        }
+        System.out.println("Yes: "+yes
+                        +"\nNot: "+not
+                        +"\nCant: "+cant);
     }
 }

@@ -1,7 +1,6 @@
 
 import java.util.AbstractMap; 
 import java.util.List;
-import java.util.Arrays;
 import java.util.HashSet; 
 
 public class Gini {
@@ -9,15 +8,16 @@ public class Gini {
     public static AbstractMap.SimpleEntry<String,Integer> bestOption(List<String[]> data, HashSet<String> ignore){
         String decision="";
         int decisionRow = -1;
-        float pondered = 1;
+        float pondered = 10;
         float aux;
         for (int j = 0; j < data.get(0).length;j++){
+            
             if (ignore.contains(data.get(0)[j].toUpperCase())){
                 continue;
             }
             aux = ponderedGini(data, j);
             //System.out.println(data.get(0)[j].toUpperCase()+" -> "+aux);
-            if (aux<pondered){
+            if (aux<=pondered){
                 decisionRow = j;
                 pondered = aux;
                 decision = data.get(0)[j].toUpperCase();
