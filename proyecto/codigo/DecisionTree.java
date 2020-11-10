@@ -19,7 +19,11 @@ public class DecisionTree {
         "COLE_COD_MCPIO_UBICACION","COLE_COD_DEPTO_UBICACION","ESTU_COD_MCPIO_PRESENTACION","ESTU_COD_DEPTO_PRESENTACION",
         "EXITO","PUNT_INGLES","PUNT_QUIMICA","PUNT_BIOLOGIA","PUNT_CIENCIAS_SOCIALES","PUNT_MATEMATICAS","PUNT_FISICA",
         "PUNT_LENGUAJE","PUNT_FILOSOFIA","ESTU_INST_COD_DEPARTAMENTO","PUNTAJE_PROF","COLE_NOMBRE_ESTABLECIMIENTO",
-        "ESTU_MCPIO_RESIDE.1","COLE_MCPIO_UBICACION","COLE_DEPTO_UBICACION","ESTU_DEPTO_RESIDE.1","PERIODO","ESTU_EXTERIOR"));
+        "ESTU_MCPIO_RESIDE.1","COLE_MCPIO_UBICACION","COLE_DEPTO_UBICACION","ESTU_DEPTO_RESIDE.1","PERIODO","ESTU_EXTERIOR",
+        "FAMI_EDUCACIONPADRE.1","FAMI_TRABAJOLABORMADRE","FAMI_TRABAJOLABORPADRE","FAMI_EDUCACIONMADRE.1","COLE_AREA_UBICACION",
+        "FAMI_OCUPACIONMADRE.1","FAMI_TIENE_CELULAR.1","FAMI_OCUPACIONPADRE.1","FAMI_TIENECOMPUTADOR.1","FAMI_TIENEINTERNET.1",
+        "COLE_SEDE_PRINCIPAL","FAMI_TELEFONO.1","FAMI_TIENE_NEVERA.1","FAMI_TIENEAUTOMOVIL.1","ESTU_PAIS_RESIDE.1","ESTU_AREARESIDE",
+        "FAMI_TIENEHORNO","ESTU_PAIS_RESIDE.1","FAMI_TIENEDVD","FAMI_TIENEMICROONDAS"));
         AbstractMap.SimpleEntry<String,Integer> best = Gini.bestOption(data,ignore);
         root = new Node(best.getKey(), best.getValue(),ignore,data);
     }
@@ -35,7 +39,7 @@ public class DecisionTree {
             rowDecision = n.getRowDecision();
             n = n.getNextNode(s[rowDecision]);
         }
-        if ( ( s[s.length-1].equals("1") && n.getResponse()) || (s[s.length-1].equals("1") && !n.getResponse()) ){
+        if ( ( s[s.length-1].equals("1") && n.getResponse()) || (s[s.length-1].equals("0") && !n.getResponse()) ){
             return("Correct");
         }else {
             return("Incorrect");

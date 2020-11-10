@@ -28,8 +28,8 @@ public class DatosEstu{
 
     public static void main(String[] args) {
         DecisionTree tree = new DecisionTree(DatosEstu.leerArchivo("4_train_balanced_135000.csv"));
-        List<String[]> test = DatosEstu.leerArchivo("4_test_balanced_45000.csv");
-        //tree.print();
+        List<String[]> test = DatosEstu.leerArchivo("0_test_balanced_5000.csv");
+        tree.print();
         String aux;
         int yes=0,not=0,cant=0;
         for (int i = 1; i < test.size(); i++){

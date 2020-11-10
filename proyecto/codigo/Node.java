@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.HashMap;
 import java.util.Queue;
 import java.util.LinkedList;
+import java.io.*;
 
 public class Node {
     private List<String[]> data;
@@ -17,7 +18,7 @@ public class Node {
         //System.out.println(decision);
         this.decision = decision;
         this.rowDecision = rowDecision;
-        this.ignore = ignore;
+        this.ignore = (HashSet<String>)ignore.clone();
         this.ignore.add(decision.toUpperCase());
         this.data = data;
         if(!isPure() && rowDecision != -1){
@@ -26,20 +27,33 @@ public class Node {
     }
 
     public static void print(Node n){
-        Queue<Node> q = new LinkedList<>();
-        q.add(n);
-        Node curr;
-        Node next;
-        while (!q.isEmpty()){
-            curr = q.poll();
-            if (curr.options != null){
-                for (String keys: curr.options.keySet()){
-                    next = curr.options.get(keys);
-                    q.add(next);
-                    System.out.println("\""+curr.decision+"\"" +" -> "+"\""+next.decision+"\" [ label = \""+keys+"\"]");
+        
+		try {
+            File file = new File("./tree.txt");
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw= new BufferedWriter(fw);
+            Queue<Node> q = new LinkedList<>();
+            q.add(n);
+            Node curr;
+            Node next;
+            while (!q.isEmpty()){
+                curr = q.poll();
+                if (curr.options != null){
+                    for (String keys: curr.options.keySet()){
+                        next = curr.options.get(keys);
+                        if (next!=null){
+                            q.add(next);
+                            bw.write("\""+curr.decision+"\"" +" -> "+"\""+next.decision+"\" [ label = \""+keys+"\"]\n");
+                        }
+                        
+                        //System.out.println("\""+curr.decision+"\"" +" -> "+"\""+next.decision+"\" [ label = \""+keys+"\"]");
+                    }
                 }
             }
-        }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
     }
 
     private boolean isPure(){
@@ -62,7 +76,7 @@ public class Node {
             
             if (best.getValue() == -1 || newData.get(keys).size() == 2){
                 //System.out.println("-> \""+this.decision+"\"" +" -> "+"\""+best.getKey()+"\" [ label = \""+keys+"\"]");
-                n = new Node("null",best.getValue(), ignore, newData.get(keys));
+                n = null;
             }else{
                 n = new Node(best.getKey(),best.getValue(),ignore, newData.get(keys));
             }
