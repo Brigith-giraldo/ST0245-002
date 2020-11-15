@@ -89,7 +89,6 @@ public class Node {
 
     private HashMap<String,List<String[]>> divideData(){
         HashMap<String,List<String[]>> newData = new HashMap<>();
-        tools.generateOption("s", 1);
         for (int i = 1; i < data.size(); i++){
             if (newData.containsKey(tools.generateOption(data.get(i)[rowDecision],rowDecision))){
                 newData.get(tools.generateOption(data.get(i)[rowDecision],rowDecision)).add(data.get(i));

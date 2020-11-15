@@ -18,7 +18,7 @@ public class DecisionTree {
         "ESTU_INSTPORCOSTOMATRICULA","ESTU_INSTPORUNICAQUEOFRECE","ESTU_INSTPOROTRARAZON","ESTU_COD_PROGRAMADESEADO",
         "ESTU_PROGPORTRADICIONFAMILIAR","COLE_CODIGO_ICFES","COLE_COD_DANE_ESTABLECIMIENTO","COLE_GENERO","COLE_COD_DANE_SEDE",
         "COLE_COD_MCPIO_UBICACION","COLE_COD_DEPTO_UBICACION","ESTU_COD_MCPIO_PRESENTACION","ESTU_COD_DEPTO_PRESENTACION",
-        "EXITO","ESTU_INST_COD_DEPARTAMENTO","PUNTAJE_PROF","COLE_NOMBRE_ESTABLECIMIENTO",
+        "EXITO","ESTU_INST_COD_DEPARTAMENTO","COLE_NOMBRE_ESTABLECIMIENTO",
         "ESTU_MCPIO_RESIDE.1","COLE_MCPIO_UBICACION","COLE_DEPTO_UBICACION","ESTU_DEPTO_RESIDE.1","PERIODO","ESTU_EXTERIOR",
         "FAMI_EDUCACIONPADRE.1","FAMI_TRABAJOLABORMADRE","FAMI_TRABAJOLABORPADRE","FAMI_EDUCACIONMADRE.1","COLE_AREA_UBICACION",
         "FAMI_OCUPACIONMADRE.1","FAMI_TIENE_CELULAR.1","FAMI_OCUPACIONPADRE.1","FAMI_TIENECOMPUTADOR.1","FAMI_TIENEINTERNET.1",
@@ -37,9 +37,9 @@ public class DecisionTree {
         Node n = this.root;
         int rowDecision;
         while (n.notNull()){
-            System.out.println(n.getDecision()+" ");
+            //System.out.println(n.getDecision()+" ");
             rowDecision = n.getRowDecision();
-            if (n.getNextNode(s[rowDecision]) != null){
+            if (n.getNextNode(tools.generateOption(s[rowDecision],rowDecision)) != null){
                 n = n.getNextNode(tools.generateOption(s[rowDecision],rowDecision));
             }else{
                 break;
