@@ -27,23 +27,32 @@ public class DatosEstu{
     
 
     public static void main(String[] args) {
+        long start,end;
+        start = System.currentTimeMillis();
         DecisionTree tree = new DecisionTree(DatosEstu.leerArchivo("4_train_balanced_135000.csv"));
+        end = System.currentTimeMillis();
+        System.out.println("Tree time: "+(end-start));
         List<String[]> test = DatosEstu.leerArchivo("0_test_balanced_5000.csv");
-        tree.print();
-        String aux;
+
         int yes=0,not=0,cant=0;
-        for (int i = 1; i < test.size(); i++){
+        start = System.currentTimeMillis();
+        System.out.println(4998+" "+tree.use(test.get(4998)));
+        String aux;
+        /*for (int i = 1; i < test.size(); i++){
             aux = tree.use(test.get(i));
-            //System.out.println(i+": "+aux);
+            System.out.println(i+": "+aux);
             cant += 1;
             if (aux.equals("Correct")){
                 yes+=1;
             }else {
                 not +=1;
             }
-        }
+        }/*/
+        end = System.currentTimeMillis();
+        System.out.println("test: "+(end-start));
         System.out.println("Yes: "+yes
                         +"\nNot: "+not
                         +"\nCant: "+cant);
+        System.out.println("Porcentaje: "+(100/(float)cant)*yes+"%");
     }
 }

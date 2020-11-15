@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.io.*;
 
 public class Node {
-    private List<String[]> data;
+    public List<String[]> data;
     private HashMap<String,Node> options;
     private HashSet<String> ignore;
     private String decision;
@@ -16,6 +16,7 @@ public class Node {
     
     public Node(String decision, int rowDecision,HashSet<String> ignore, List<String[]> data){
         //System.out.println(decision);
+        this.options = null;
         this.decision = decision;
         this.rowDecision = rowDecision;
         this.ignore = (HashSet<String>)ignore.clone();
@@ -88,14 +89,15 @@ public class Node {
 
     private HashMap<String,List<String[]>> divideData(){
         HashMap<String,List<String[]>> newData = new HashMap<>();
+        tools.generateOption("s", 1);
         for (int i = 1; i < data.size(); i++){
-            if (newData.containsKey(data.get(i)[rowDecision])){
-                newData.get(data.get(i)[rowDecision]).add(data.get(i));
+            if (newData.containsKey(tools.generateOption(data.get(i)[rowDecision],rowDecision))){
+                newData.get(tools.generateOption(data.get(i)[rowDecision],rowDecision)).add(data.get(i));
             }else{
                 List<String[]> aux = new ArrayList<>();
                 aux.add(data.get(0));
                 aux.add(data.get(i));
-                newData.put(data.get(i)[rowDecision], aux);
+                newData.put(tools.generateOption(data.get(i)[rowDecision],rowDecision), aux);
             }
         }
         return newData;
@@ -108,12 +110,20 @@ public class Node {
         return this.rowDecision;
     }
     public boolean notNull(){
-        return this.options == null;
+        return (this.options != null);
     }
     public Node getNextNode(String s){
         return this.options.get(s);
     }
-    public boolean getResponse(){
-        return this.data.get(1)[data.get(0).length-1].equals("1");
+    public String getResponse(){
+        int yes = 0,no = 0;
+        for (int i = 1; i < this.data.size(); i++){
+            if (this.data.get(1)[data.get(i).length-1].equals("1")){
+                yes += 1;
+            }else{
+                no += 1;
+            }
+        }
+        return (yes > no) ? "1" : "0";
     }
 }

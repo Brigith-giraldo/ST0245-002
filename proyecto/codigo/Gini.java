@@ -32,9 +32,9 @@ public class Gini {
         float pondered = 0;
         AbstractMap.SimpleEntry<Integer,Float> aux;
         for (int i = 1; i < data.size(); i++){
-            if (!save.contains(data.get(i)[row])){
-                save.add(data.get(i)[row]);
-                aux = gini(data, row, data.get(i)[row]);
+            if (!save.contains(tools.generateOption(data.get(i)[row],row))){
+                save.add(tools.generateOption(data.get(i)[row],row));
+                aux = gini(data, row, tools.generateOption(data.get(i)[row],row));
                 pondered += ((float)aux.getKey()/((float)data.size()-1)) * aux.getValue();
             }
         }
@@ -44,8 +44,8 @@ public class Gini {
     public static AbstractMap.SimpleEntry<Integer,Float> gini(List<String[]> data,int row, String value){
         float p0=0,p1=0;
         int cant = 0;
-        for (int i = 0; i < data.size(); i++){
-            if (data.get(i)[row].equalsIgnoreCase(value)){
+        for (int i = 1; i < data.size(); i++){
+            if (tools.generateOption(data.get(i)[row],row).equalsIgnoreCase(value)){
                 cant += 1;
                 if (data.get(i)[data.get(0).length-1].equalsIgnoreCase("1")){
                     p1 += 1;
