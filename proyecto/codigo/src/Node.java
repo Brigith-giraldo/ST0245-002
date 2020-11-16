@@ -24,7 +24,7 @@ public class Node {
         this.ignore = (HashSet<String>)ignore.clone();
         this.ignore.add(decision.toUpperCase());
         this.data = data;
-        if(data.size() > 2 && !decision.equals("null") && !isPure()){
+        if(data.size() >  2&& !decision.equals("null") && !isPure()){
             addOptions();
         }
     }

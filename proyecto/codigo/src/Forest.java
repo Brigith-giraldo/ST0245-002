@@ -25,7 +25,7 @@ public class Forest {
         }
     }
 
-    public Boolean use(String[] s){
+    public String use(String[] s){
         int yes = 0, no = 0;
         for (int i = 0; i < trees.length; i++){
             if (trees[i].use(s).equals("1")){
@@ -33,8 +33,7 @@ public class Forest {
             }else {
                 no += 1;
             }
-        }
-        String res = yes > no ? "1" : "0";
-        return s[s.length-1].equals(res) ? true : false;
+        } 
+        return yes > no ? "1" : "0";
     }
 }
