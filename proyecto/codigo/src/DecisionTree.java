@@ -5,8 +5,19 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.HashSet;
 
+/**
+ * this class is where you start creating the decision tree
+ * @author Kevin Sossa
+ * @author Dixon Calderon
+ * @version 1
+ */
 public class DecisionTree {
     private Node root;
+
+	/**
+	 * Method constructor
+	 * @param data - student data
+	 */
     public DecisionTree(List<String[]> data){
         HashSet<String> ignore;
         ignore = new HashSet<String>(Arrays.asList("COLE_NOMBRE_SEDE","ESTU_TIPODOCUMENTO.1","ESTU_NACIONALIDAD.1","ESTU_GENERO.1",
@@ -26,20 +37,27 @@ public class DecisionTree {
         "FAMI_OCUPACIONMADRE.1","FAMI_TIENE_CELULAR.1","FAMI_OCUPACIONPADRE.1","FAMI_TIENECOMPUTADOR.1","FAMI_TIENEINTERNET.1",
         "COLE_SEDE_PRINCIPAL","FAMI_TELEFONO.1","FAMI_TIENE_NEVERA.1","FAMI_TIENEAUTOMOVIL.1","ESTU_PAIS_RESIDE.1","ESTU_AREARESIDE",
         "FAMI_TIENEHORNO","ESTU_PAIS_RESIDE.1","FAMI_TIENEDVD","FAMI_TIENEMICROONDAS"));
-        //*/
+
         AbstractMap.SimpleEntry<String,Integer> best = Gini.bestOption(data,ignore);
         root = new Node(best.getKey(), best.getValue(),ignore,data);
     }
 
+	/**
+	 * method to print the tree from the root
+	 */
     public void print(){
         Node.print(root);
     }
 
+	/**
+	 *  method to evaluate a student's results
+	 * @param s - student results
+	 * @return the response that the tree should have
+	 */
     public String use(String[] s){
         Node n = this.root;
         int rowDecision;
         while (n.notNull()){
-            //System.out.println(n.getDecision()+" ");
             rowDecision = n.getRowDecision();
             if (n.getNextNode(tools.generateOption(s[rowDecision],rowDecision)) != null){
                 n = n.getNextNode(tools.generateOption(s[rowDecision],rowDecision));
@@ -48,11 +66,5 @@ public class DecisionTree {
             }
         }
         return n.getResponse();
-        //System.out.print(s[s.length-1]+" "+n.getResponse()+" "+n.data.get(0)[n.data.get(0).length-1]+" ");
-        /*if ( ( s[s.length-1].equals("1") && n.getResponse().equals("1")) || (s[s.length-1].equals("0") && n.getResponse().equals("0")) ){
-            return("Correct");
-        }else {
-            return("Incorrect");
-        }*/
     }
 }

@@ -1,5 +1,11 @@
 package src;
 
+/**
+ * class to have tools needed in various parts of the project
+ * @author Kevin Sossa
+ * @author Dixon Calderon
+ * @version 1
+ */
 public class tools {
     private static String[] data = {"estu_consecutivo.1","estu_exterior","periodo","estu_tieneetnia","estu_tomo_cursopreparacion",
     "estu_cursodocentesies","estu_cursoiesapoyoexterno","estu_cursoiesexterna","estu_simulacrotipoicfes",
@@ -17,6 +23,13 @@ public class tools {
     "punt_lenguaje","punt_matematicas","punt_biologia","punt_quimica","punt_fisica","punt_ciencias_sociales","punt_filosofia",
     "punt_ingles","desemp_ingles","profundiza","puntaje_prof","desemp_prof","exito"
     };
+
+	/**
+	 * method to convert score variables into a range and the rest do nothing
+	 * @param s - student answer
+	 * @param row - row question
+	 * @return answer converted into a range if is necessary
+	 */
     public static String generateOption(String s,int row){
         if (data[row].startsWith("punt")){
             double punt = Double.parseDouble(s);

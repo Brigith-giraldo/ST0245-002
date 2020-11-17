@@ -3,8 +3,20 @@ package src;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class for the construction of the forest
+ * @author Kevin Sossa
+ * @author Dixon Calderon
+ * @version 1
+ */
 public class Forest {
     private DecisionTree trees[];
+
+	/**
+	 * method constructor
+	 * @param data - student data
+	 * @param Ntrees - number of trees the forest will have
+	 */
     public Forest (List<String[]> data, int Ntrees){
         trees = new DecisionTree[Ntrees];
         List<String[]> DividedData[] = new List[Ntrees];
@@ -25,6 +37,12 @@ public class Forest {
         }
     }
 
+	/**
+	 * method to evaluate the joint response of all
+	 * the trees in the forest to a student
+	 * @param s - student answers
+	 * @return if the forest says it should succeed return 1 if not return 0
+	 */
     public String use(String[] s){
         int yes = 0, no = 0;
         for (int i = 0; i < trees.length; i++){
@@ -33,7 +51,7 @@ public class Forest {
             }else {
                 no += 1;
             }
-        } 
+        }
         return yes > no ? "1" : "0";
     }
 }

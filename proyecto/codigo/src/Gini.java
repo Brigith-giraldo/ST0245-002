@@ -1,18 +1,31 @@
 package src;
 
-import java.util.AbstractMap; 
+import java.util.AbstractMap;
 import java.util.List;
-import java.util.HashSet; 
+import java.util.HashSet;
 
+/**
+ * This class allows to calculate which is the best
+ * question to ask according to a data set using gini
+ * @author Kevin Sossa
+ * @author Dixon Calderon
+ * @version 1
+ */
 public class Gini {
-    
+
+	/**
+	 * Method for calculating the best question to ask
+	 * @param data - student data
+	 * @param ignore - questions I don't have to ask
+	 * @return a pair of a string and a integer with the best question and the column in which it is
+	 */
     public static AbstractMap.SimpleEntry<String,Integer> bestOption(List<String[]> data, HashSet<String> ignore){
         String decision="";
         int decisionRow = -1;
         float pondered = 10;
         float aux;
         for (int j = 0; j < data.get(0).length;j++){
-            
+
             if (ignore.contains(data.get(0)[j].toUpperCase())){
                 continue;
             }
@@ -27,7 +40,13 @@ public class Gini {
         //System.out.println("Mejor es: "+decision+" = "+pondered);
         return new AbstractMap.SimpleEntry<>(decision,decisionRow);
     }
-    
+
+	/**
+	 * Method to calculate the weighted gini of a row
+	 * @param data - student data
+	 * @param row - row to which I have to calculate the weighted gini
+	 * @return a weighted gini
+	 */
     public static float ponderedGini(List<String[]> data, int row){
         HashSet<String> save = new HashSet<>();
         float pondered = 0;
@@ -42,6 +61,13 @@ public class Gini {
         return pondered;
     }
 
+	/**
+	 * method to calculate the gini of a value
+	 * @param data - student data
+	 * @param row - row to which I have to calculate the weighted gini
+	 * @param value - value to calculate
+	 * @return the amount of data with that value and its respective gini
+	 */
     public static AbstractMap.SimpleEntry<Integer,Float> gini(List<String[]> data,int row, String value){
         float p0=0,p1=0;
         int cant = 0;
